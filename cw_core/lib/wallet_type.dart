@@ -16,6 +16,7 @@ const walletTypes = [
   WalletType.polygon,
   WalletType.solana,
   WalletType.tron,
+  WalletType.digibyte,
 ];
 
 @HiveType(typeId: WALLET_TYPE_TYPE_ID)
@@ -54,7 +55,10 @@ enum WalletType {
   solana,
 
   @HiveField(11)
-  tron
+  tron,
+
+  @HiveField(12)
+  digibyte
 }
 
 int serializeToInt(WalletType type) {
@@ -81,6 +85,8 @@ int serializeToInt(WalletType type) {
       return 9;
     case WalletType.tron:
       return 10;
+    case WalletType.digibyte:
+      return 11;
     default:
       return -1;
   }
@@ -110,6 +116,8 @@ WalletType deserializeFromInt(int raw) {
       return WalletType.solana;
     case 10:
       return WalletType.tron;
+    case 11:
+      return WalletType.digibyte;
     default:
       throw Exception('Unexpected token: $raw for WalletType deserializeFromInt');
   }
@@ -139,6 +147,8 @@ String walletTypeToString(WalletType type) {
       return 'Solana';
     case WalletType.tron:
       return 'Tron';
+    case WalletType.digibyte:
+      return 'DigiByte';
     default:
       return '';
   }
@@ -168,6 +178,8 @@ String walletTypeToDisplayName(WalletType type) {
       return 'Solana (SOL)';
     case WalletType.tron:
       return 'Tron (TRX)';
+    case WalletType.digibyte:
+      return 'DigiByte (DGB)';
     default:
       return '';
   }
@@ -197,6 +209,8 @@ CryptoCurrency walletTypeToCryptoCurrency(WalletType type) {
       return CryptoCurrency.sol;
     case WalletType.tron:
       return CryptoCurrency.trx;
+    case WalletType.digibyte:
+      return CryptoCurrency.digibyte;
     default:
       throw Exception(
           'Unexpected wallet type: ${type.toString()} for CryptoCurrency walletTypeToCryptoCurrency');

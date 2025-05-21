@@ -25,6 +25,8 @@ CryptoCurrency currencyForWalletType(WalletType type) {
       return CryptoCurrency.sol;
     case WalletType.tron:
       return CryptoCurrency.trx;
+    case WalletType.digibyte:
+      return CryptoCurrency.digibyte;
     default:
       throw Exception(
           'Unexpected wallet type: ${type.toString()} for CryptoCurrency currencyForWalletType');
