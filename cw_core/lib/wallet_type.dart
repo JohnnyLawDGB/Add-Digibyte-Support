@@ -8,6 +8,7 @@ const walletTypes = [
   WalletType.monero,
   WalletType.bitcoin,
   WalletType.litecoin,
+  WalletType.digibyte,
   WalletType.haven,
   WalletType.ethereum,
   WalletType.bitcoinCash,
@@ -35,36 +36,39 @@ enum WalletType {
   litecoin,
 
   @HiveField(4)
-  haven,
+  digibyte,
 
   @HiveField(5)
-  ethereum,
+  haven,
 
   @HiveField(6)
-  nano,
+  ethereum,
 
   @HiveField(7)
-  banano,
+  nano,
 
   @HiveField(8)
-  bitcoinCash,
+  banano,
 
   @HiveField(9)
-  polygon,
+  bitcoinCash,
 
   @HiveField(10)
-  solana,
+  polygon,
 
   @HiveField(11)
-  tron,
+  solana,
 
   @HiveField(12)
-  wownero,
+  tron,
 
   @HiveField(13)
-  zano,
+  wownero,
 
   @HiveField(14)
+  zano,
+
+  @HiveField(15)
   decred
 }
 
@@ -76,28 +80,30 @@ int serializeToInt(WalletType type) {
       return 1;
     case WalletType.litecoin:
       return 2;
-    case WalletType.haven:
+    case WalletType.digibyte:
       return 3;
-    case WalletType.ethereum:
+    case WalletType.haven:
       return 4;
-    case WalletType.nano:
+    case WalletType.ethereum:
       return 5;
-    case WalletType.banano:
+    case WalletType.nano:
       return 6;
-    case WalletType.bitcoinCash:
+    case WalletType.banano:
       return 7;
-    case WalletType.polygon:
+    case WalletType.bitcoinCash:
       return 8;
-    case WalletType.solana:
+    case WalletType.polygon:
       return 9;
-    case WalletType.tron:
+    case WalletType.solana:
       return 10;
-    case WalletType.wownero:
+    case WalletType.tron:
       return 11;
-    case WalletType.zano:
+    case WalletType.wownero:
       return 12;
-    case WalletType.decred:
+    case WalletType.zano:
       return 13;
+    case WalletType.decred:
+      return 14;
     case WalletType.none:
       return -1;
   }
@@ -112,26 +118,28 @@ WalletType deserializeFromInt(int raw) {
     case 2:
       return WalletType.litecoin;
     case 3:
-      return WalletType.haven;
+      return WalletType.digibyte;
     case 4:
-      return WalletType.ethereum;
+      return WalletType.haven;
     case 5:
-      return WalletType.nano;
+      return WalletType.ethereum;
     case 6:
-      return WalletType.banano;
+      return WalletType.nano;
     case 7:
-      return WalletType.bitcoinCash;
+      return WalletType.banano;
     case 8:
-      return WalletType.polygon;
+      return WalletType.bitcoinCash;
     case 9:
-      return WalletType.solana;
+      return WalletType.polygon;
     case 10:
-      return WalletType.tron;
+      return WalletType.solana;
     case 11:
-      return WalletType.wownero;
+      return WalletType.tron;
     case 12:
-      return WalletType.zano;
+      return WalletType.wownero;
     case 13:
+      return WalletType.zano;
+    case 14:
       return WalletType.decred;
     default:
       throw Exception(
@@ -147,6 +155,8 @@ String walletTypeToString(WalletType type) {
       return 'Bitcoin';
     case WalletType.litecoin:
       return 'Litecoin';
+    case WalletType.digibyte:
+      return 'DigiByte';
     case WalletType.haven:
       return 'Haven';
     case WalletType.ethereum:
@@ -182,6 +192,8 @@ String walletTypeToDisplayName(WalletType type) {
       return 'Bitcoin (BTC)';
     case WalletType.litecoin:
       return 'Litecoin (LTC)';
+    case WalletType.digibyte:
+      return 'DigiByte (DGB)';
     case WalletType.haven:
       return 'Haven (XHV)';
     case WalletType.ethereum:
@@ -220,6 +232,8 @@ CryptoCurrency walletTypeToCryptoCurrency(WalletType type, {bool isTestnet = fal
       return CryptoCurrency.btc;
     case WalletType.litecoin:
       return CryptoCurrency.ltc;
+    case WalletType.digibyte:
+      return CryptoCurrency.digibyte;
     case WalletType.haven:
       return CryptoCurrency.xhv;
     case WalletType.ethereum:
@@ -256,6 +270,8 @@ WalletType? cryptoCurrencyToWalletType(CryptoCurrency type) {
       return WalletType.bitcoin;
     case CryptoCurrency.ltc:
       return WalletType.litecoin;
+    case CryptoCurrency.digibyte:
+      return WalletType.digibyte;
     case CryptoCurrency.xhv:
       return WalletType.haven;
     case CryptoCurrency.eth:
