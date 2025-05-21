@@ -38,6 +38,18 @@ part 'bitcoin_wallet.g.dart';
 class BitcoinWallet = BitcoinWalletBase with _$BitcoinWallet;
 
 abstract class BitcoinWalletBase extends ElectrumWallet with Store {
+  static CryptoCurrency _currencyForNetwork(BasedUtxoNetwork network) {
+    if (network == BitcoinNetwork.testnet) {
+      return CryptoCurrency.tbtc;
+    }
+    if (network is LitecoinNetwork) {
+      return CryptoCurrency.ltc;
+    }
+    if (network is DigibyteNetwork) {
+      return CryptoCurrency.digibyte;
+    }
+    return CryptoCurrency.btc;
+  }
   BitcoinWalletBase({
     required String password,
     required WalletInfo walletInfo,
@@ -64,18 +76,12 @@ abstract class BitcoinWalletBase extends ElectrumWallet with Store {
           password: password,
           walletInfo: walletInfo,
           unspentCoinsInfo: unspentCoinsInfo,
-          network: networkParam == null
-              ? BitcoinNetwork.mainnet
-              : networkParam == BitcoinNetwork.mainnet
-                  ? BitcoinNetwork.mainnet
-                  : BitcoinNetwork.testnet,
+          network: networkParam ?? BitcoinNetwork.mainnet,
           initialAddresses: initialAddresses,
           initialBalance: initialBalance,
           seedBytes: seedBytes,
           encryptionFileUtils: encryptionFileUtils,
-          currency: networkParam == BitcoinNetwork.testnet
-              ? CryptoCurrency.tbtc
-              : CryptoCurrency.btc,
+          currency: _currencyForNetwork(networkParam ?? BitcoinNetwork.mainnet),
           alwaysScan: alwaysScan,
         ) {
     // in a standard BIP44 wallet, mainHd derivation path = m/84'/0'/0'/0 (account 0, index unspecified here)

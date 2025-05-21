@@ -1116,6 +1116,14 @@ Future<void> setup({
           getIt.get<SettingsStore>().mwebAlwaysScan,
           SettingsStoreBase.walletPasswordDirectInput,
         );
+      case WalletType.digibyte:
+        return bitcoin!.createDigibyteWalletService(
+          _walletInfoSource,
+          _unspentCoinsInfoSource,
+          _payjoinSessionSource,
+          getIt.get<SettingsStore>().silentPaymentsAlwaysScan,
+          SettingsStoreBase.walletPasswordDirectInput,
+        );
       case WalletType.ethereum:
         return ethereum!.createEthereumWalletService(
             _walletInfoSource, SettingsStoreBase.walletPasswordDirectInput);

@@ -18,6 +18,7 @@ const walletTypes = [
   WalletType.tron,
   WalletType.zano,
   WalletType.decred,
+  WalletType.digibyte,
 ];
 
 @HiveType(typeId: WALLET_TYPE_TYPE_ID)
@@ -66,6 +67,10 @@ enum WalletType {
 
   @HiveField(14)
   decred
+  ,
+
+  @HiveField(15)
+  digibyte
 }
 
 int serializeToInt(WalletType type) {
@@ -98,6 +103,8 @@ int serializeToInt(WalletType type) {
       return 12;
     case WalletType.decred:
       return 13;
+    case WalletType.digibyte:
+      return 14;
     case WalletType.none:
       return -1;
   }
@@ -133,6 +140,8 @@ WalletType deserializeFromInt(int raw) {
       return WalletType.zano;
     case 13:
       return WalletType.decred;
+    case 14:
+      return WalletType.digibyte;
     default:
       throw Exception(
           'Unexpected token: $raw for WalletType deserializeFromInt');
@@ -169,6 +178,8 @@ String walletTypeToString(WalletType type) {
       return 'Zano';
     case WalletType.decred:
       return 'Decred';
+    case WalletType.digibyte:
+      return 'DigiByte';
     case WalletType.none:
       return '';
   }
@@ -204,6 +215,8 @@ String walletTypeToDisplayName(WalletType type) {
       return 'Zano (ZANO)';
     case WalletType.decred:
       return 'Decred (DCR)';
+    case WalletType.digibyte:
+      return 'DigiByte (DGB)';
     case WalletType.none:
       return '';
   }
@@ -242,6 +255,8 @@ CryptoCurrency walletTypeToCryptoCurrency(WalletType type, {bool isTestnet = fal
       return CryptoCurrency.zano;
     case WalletType.decred:
       return CryptoCurrency.dcr;
+    case WalletType.digibyte:
+      return CryptoCurrency.digibyte;
     case WalletType.none:
       throw Exception(
           'Unexpected wallet type: ${type.toString()} for CryptoCurrency walletTypeToCryptoCurrency');
@@ -278,6 +293,8 @@ WalletType? cryptoCurrencyToWalletType(CryptoCurrency type) {
       return WalletType.zano;
     case CryptoCurrency.dcr:
       return WalletType.decred;
+    case CryptoCurrency.digibyte:
+      return WalletType.digibyte;
     default:
       return null;
   }
