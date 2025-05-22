@@ -161,6 +161,7 @@ abstract class WalletKeysViewModelBase with Store {
         break;
       case WalletType.bitcoin:
       case WalletType.litecoin:
+      case WalletType.digibyte:
       case WalletType.bitcoinCash:
       case WalletType.none:
       case WalletType.haven:
@@ -230,6 +231,8 @@ abstract class WalletKeysViewModelBase with Store {
         return 'bitcoin-wallet';
       case WalletType.litecoin:
         return 'litecoin-wallet';
+      case WalletType.digibyte:
+        return 'digibyte-wallet';
       case WalletType.haven:
         return 'haven-wallet';
       case WalletType.ethereum:

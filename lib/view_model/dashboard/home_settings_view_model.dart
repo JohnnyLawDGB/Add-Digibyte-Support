@@ -208,6 +208,7 @@ abstract class HomeSettingsViewModelBase with Store {
         break;
       case WalletType.zano:
       case WalletType.banano:
+      case WalletType.digibyte:
       case WalletType.monero:
       case WalletType.none:
       case WalletType.bitcoin:

@@ -82,6 +82,7 @@ abstract class NodeCreateOrEditViewModelBase with Store {
       case WalletType.monero:
       case WalletType.wownero:
       case WalletType.haven:
+      case WalletType.digibyte:
       case WalletType.litecoin:
       case WalletType.bitcoinCash:
       case WalletType.bitcoin:

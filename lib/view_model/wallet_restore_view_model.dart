@@ -64,6 +64,7 @@ abstract class WalletRestoreViewModelBase extends WalletCreationVM with Store {
         break;
       case WalletType.bitcoin:
       case WalletType.litecoin:
+      case WalletType.digibyte:
       case WalletType.bitcoinCash:
       case WalletType.zano:
       case WalletType.none:

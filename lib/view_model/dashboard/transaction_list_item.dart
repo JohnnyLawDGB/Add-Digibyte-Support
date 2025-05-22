@@ -75,6 +75,7 @@ class TransactionListItem extends ActionListItem with Keyable {
         }
         break;
       case WalletType.litecoin:
+      case WalletType.digibyte:
         bool isPegIn = (transaction.additionalInfo["isPegIn"] as bool?) ?? false;
         bool isPegOut = (transaction.additionalInfo["isPegOut"] as bool?) ?? false;
         bool fromPegOut = (transaction.additionalInfo["fromPegOut"] as bool?) ?? false;
@@ -107,6 +108,7 @@ class TransactionListItem extends ActionListItem with Keyable {
       WalletType.haven,
       WalletType.wownero,
       WalletType.litecoin,
+      WalletType.digibyte,
       WalletType.zano,
     ].contains(balanceViewModel.wallet.type)) {
       return formattedPendingStatus;
@@ -166,6 +168,7 @@ class TransactionListItem extends ActionListItem with Keyable {
         break;
       case WalletType.bitcoin:
       case WalletType.litecoin:
+      case WalletType.digibyte:
       case WalletType.bitcoinCash:
         amount = calculateFiatAmountRaw(
             cryptoAmount: bitcoin!.formatterBitcoinAmountToDouble(amount: transaction.amount),

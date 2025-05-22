@@ -83,6 +83,8 @@ abstract class FeesViewModelBase extends WalletChangeListenerViewModel with Stor
         return transactionPriority == bitcoin!.getBitcoinTransactionPrioritySlow();
       case WalletType.litecoin:
         return transactionPriority == bitcoin!.getLitecoinTransactionPrioritySlow();
+      case WalletType.digibyte:
+        return transactionPriority == bitcoin!.getLitecoinTransactionPrioritySlow();
       case WalletType.ethereum:
         return transactionPriority == ethereum!.getEthereumTransactionPrioritySlow();
       case WalletType.bitcoinCash:
@@ -180,6 +182,9 @@ abstract class FeesViewModelBase extends WalletChangeListenerViewModel with Stor
         _settingsStore.priority[wallet.type] = bitcoin!.getBitcoinTransactionPriorityMedium();
         break;
       case WalletType.litecoin:
+        _settingsStore.priority[wallet.type] = bitcoin!.getLitecoinTransactionPriorityMedium();
+        break;
+      case WalletType.digibyte:
         _settingsStore.priority[wallet.type] = bitcoin!.getLitecoinTransactionPriorityMedium();
         break;
       case WalletType.ethereum:

@@ -58,6 +58,7 @@ abstract class TransactionDetailsViewModelBase with Store {
         if (!canReplaceByFee) _checkForRBF(tx);
         break;
       case WalletType.litecoin:
+      case WalletType.digibyte:
       case WalletType.bitcoinCash:
         _addElectrumListItems(tx, dateFormat);
         break;
