@@ -102,5 +102,60 @@ void main() {
       await walletInfoBox.close();
       await unspentCoinsBox.close();
     });
+
+    test('Restore from seed phrase', () async {
+      final walletInfoBox = await Hive.openBox<WalletInfo>('walletInfo');
+      final unspentCoinsBox = await Hive.openBox<UnspentCoinsInfo>('unspentCoins');
+
+      final walletInfo = WalletInfo.external(
+        id: WalletBase.idFor('seed_wallet', WalletType.digibyte),
+        name: 'seed_wallet',
+        type: WalletType.digibyte,
+        isRecovery: true,
+        restoreHeight: 0,
+        date: DateTime.now(),
+        path: '',
+        dirPath: '',
+        address: '',
+      );
+
+      const mnemonic =
+          'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about';
+
+      final credentials = BitcoinRestoreWalletFromSeedCredentials(
+        name: 'seed_wallet',
+        mnemonic: mnemonic,
+        password: 'test',
+        derivationType: DerivationType.electrum,
+        derivationPath: electrum_path,
+        walletInfo: walletInfo,
+      );
+
+      final service = DigibyteWalletService(
+        walletInfoBox,
+        unspentCoinsBox,
+        false,
+        true,
+      );
+
+      final wallet = await service.restoreFromSeed(credentials);
+
+      final seedBytes = await mnemonicToSeedBytes(mnemonic);
+      final hd = Bip32Slip10Secp256k1.fromSeed(seedBytes)
+          .derivePath(electrum_path) as Bip32Slip10Secp256k1;
+
+      final expected = generateP2WPKHAddress(
+        hd: hd,
+        index: 0,
+        network: DigibyteNetwork.mainnet,
+      );
+
+      expect(wallet.walletAddresses.address, expected);
+
+      await walletInfoBox.close();
+      await unspentCoinsBox.close();
+    });
+
+    test('Restore from hardware wallet', () async {}, skip: 'Not implemented');
   });
 }
