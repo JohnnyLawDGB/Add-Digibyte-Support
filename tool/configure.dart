@@ -1319,16 +1319,21 @@ abstract class Zano {
 
 Future<void> generateDigibyte(bool hasImplementation) async {
   final outputFile = File(digibyteOutputPath);
-  const digibyteCommonHeaders = """
+const digibyteCommonHeaders = """
 import 'package:cw_core/wallet_credentials.dart';
 import 'package:cw_core/wallet_info.dart';
 import 'package:cw_core/wallet_service.dart';
 import 'package:cw_core/transaction_priority.dart';
 import 'package:cw_core/unspent_coins_info.dart';
+import 'package:cw_core/hardware/hardware_account_data.dart';
+import 'package:cake_wallet/view_model/send/output.dart';
+import 'package:cw_core/output_info.dart';
 import 'package:hive/hive.dart';
 """;
   const digibyteCWHeaders = """
 import 'package:cw_digibyte/cw_digibyte.dart';
+import 'package:cw_bitcoin/bitcoin_transaction_credentials.dart';
+import 'package:cw_bitcoin/bitcoin_transaction_priority.dart';
 """;
   const digibyteCwPart = "part 'cw_digibyte.dart';";
   const digibyteContent = """
